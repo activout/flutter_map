@@ -16,7 +16,7 @@ class NetworkImageWithRetry extends ImageProvider<NetworkImageWithRetry> {
   NetworkImageWithRetry(this.url, {this.scale = 1.0});
 
   @override
-  ImageStreamCompleter load(NetworkImageWithRetry key, DecoderCallback decode) {
+  ImageStreamCompleter load(NetworkImageWithRetry key, ImageDecoderCallback decode) {
     return OneFrameImageStreamCompleter(_loadWithRetry(key, decode),
         informationCollector: () sync* {
       yield ErrorDescription('Image provider: $this');
@@ -30,7 +30,7 @@ class NetworkImageWithRetry extends ImageProvider<NetworkImageWithRetry> {
   }
 
   Future<ImageInfo> _loadWithRetry(
-      NetworkImageWithRetry key, DecoderCallback decode) async {
+      NetworkImageWithRetry key, ImageDecoderCallback decode) async {
     assert(key == this);
 
     final uri = Uri.parse(url);
