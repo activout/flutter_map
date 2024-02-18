@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/painting.dart';
 import 'package:http/http.dart';
@@ -35,7 +37,7 @@ class NetworkImageWithRetry extends ImageProvider<NetworkImageWithRetry> {
 
     final uri = Uri.parse(url);
     final response = await retryClient.get(uri);
-    final codec = await decode(response.bodyBytes);
+    final codec = await decode(await ImmutableBuffer.fromUint8List(response.bodyBytes));
     final image = (await codec.getNextFrame()).image;
 
     return ImageInfo(
