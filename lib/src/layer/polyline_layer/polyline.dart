@@ -42,6 +42,16 @@ class Polyline<R extends Object> {
   /// {@macro fm.hde.hitValue}
   final R? hitValue;
 
+  /// Optional text to annotate the polyline with
+  final TextSpan? text;
+
+  /// Where to position the text along a contour (0.5 is the middle)
+  final double textPosition;
+
+  /// Distance between polyline and text
+  final double textOffset;
+
+
   /// Create a new [Polyline] used for the [PolylineLayer].
   Polyline({
     required this.points,
@@ -56,6 +66,9 @@ class Polyline<R extends Object> {
     this.strokeJoin = StrokeJoin.round,
     this.useStrokeWidthInMeter = false,
     this.hitValue,
+    this.text,
+    this.textPosition = 0.5,
+    this.textOffset = 0,
   });
 
   @override
@@ -71,6 +84,8 @@ class Polyline<R extends Object> {
           strokeJoin == other.strokeJoin &&
           useStrokeWidthInMeter == other.useStrokeWidthInMeter &&
           hitValue == other.hitValue &&
+          textPosition == other.textPosition &&
+          text == other.text &&
           // Expensive computations last to take advantage of lazy logic gates
           listEquals(colorsStop, other.colorsStop) &&
           listEquals(gradientColors, other.gradientColors) &&
